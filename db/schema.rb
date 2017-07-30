@@ -16,6 +16,15 @@ ActiveRecord::Schema.define(version: 20170130051702) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
+  create_table "business_services", force: :cascade do |t|
+    t.string   "caption"
+    t.integer  "creator_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "business_services", ["creator_id"], name: "index_business_services_on_creator_id", using: :btree
+
   create_table "foos", force: :cascade do |t|
     t.string   "name",       null: false
     t.datetime "created_at", null: false
@@ -57,6 +66,19 @@ ActiveRecord::Schema.define(version: 20170130051702) do
   add_index "thing_images", ["image_id", "thing_id"], name: "index_thing_images_on_image_id_and_thing_id", unique: true, using: :btree
   add_index "thing_images", ["image_id"], name: "index_thing_images_on_image_id", using: :btree
   add_index "thing_images", ["thing_id"], name: "index_thing_images_on_thing_id", using: :btree
+
+  create_table "thing_services", force: :cascade do |t|
+    t.integer  "business_service_id",             null: false
+    t.integer  "thing_id",                        null: false
+    t.integer  "priority",            default: 5, null: false
+    t.integer  "creator_id",                      null: false
+    t.datetime "created_at",                      null: false
+    t.datetime "updated_at",                      null: false
+  end
+
+  add_index "thing_services", ["business_service_id", "thing_id"], name: "index_thing_services_on_business_service_id_and_thing_id", unique: true, using: :btree
+  add_index "thing_services", ["business_service_id"], name: "index_thing_services_on_business_service_id", using: :btree
+  add_index "thing_services", ["thing_id"], name: "index_thing_services_on_thing_id", using: :btree
 
   create_table "things", force: :cascade do |t|
     t.string   "name",        null: false
@@ -100,4 +122,6 @@ ActiveRecord::Schema.define(version: 20170130051702) do
   add_foreign_key "roles", "users"
   add_foreign_key "thing_images", "images"
   add_foreign_key "thing_images", "things"
+  add_foreign_key "thing_services", "business_services"
+  add_foreign_key "thing_services", "things"
 end

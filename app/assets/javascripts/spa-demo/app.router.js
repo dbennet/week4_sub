@@ -29,6 +29,10 @@
       url: "/images/:id",
       templateUrl: APP_CONFIG.images_page_html
     })
+    .state("business_services",{
+      url: "/business_services/:id",
+      templateUrl: APP_CONFIG.business_services_page_html
+    })
     .state("things",{
       url: "/things/:id",
       templateUrl: APP_CONFIG.things_page_html

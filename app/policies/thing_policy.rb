@@ -27,7 +27,15 @@ class ThingPolicy < ApplicationPolicy
     true
   end
 
+  def get_services?
+    true
+  end
+
   def add_image?
+    member_or_organizer?
+  end
+
+  def add_service?
     member_or_organizer?
   end
 

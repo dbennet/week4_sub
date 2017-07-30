@@ -13,6 +13,11 @@ Rails.application.routes.draw do
       get "thing_images",  controller: :thing_images, action: :image_things
       get "linkable_things",  controller: :thing_images, action: :linkable_things
     end
+    resources :business_services, except: [:new, :edit] do
+      post "thing_business_services",  controller: :thing_services, action: :create
+      get "thing_business_services",  controller: :thing_services, action: :service_things
+      get "linkable_things",  controller: :thing_services, action: :linkable_things
+    end
     resources :things, except: [:new, :edit] do
       resources :thing_images, only: [:index, :create, :update, :destroy]
     end

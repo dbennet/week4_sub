@@ -11,3 +11,4 @@ class ThingImage < ActiveRecord::Base
   scope :with_name,    ->{ joins(:thing).select("thing_images.*, things.name as thing_name")}
   scope :with_caption, ->{ joins(:image).select("thing_images.*, images.caption as image_caption")}
 end
+
