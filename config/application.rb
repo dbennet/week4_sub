@@ -31,6 +31,7 @@ module Myapp
 
 
     config.assets.initialize_on_precompile =false 
+    config.assets.enabled = false
 
     Mongoid.load!('./config/mongoid.yml')
     #which default ORM are we using with scaffold
