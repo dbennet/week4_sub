@@ -29,6 +29,9 @@ module Myapp
     # config.i18n.load_path += Dir[Rails.root.join('my', 'locales', '*.{rb,yml}').to_s]
     # config.i18n.default_locale = :de
 
+
+    config.assets.initialize_on_precompile =false 
+
     Mongoid.load!('./config/mongoid.yml')
     #which default ORM are we using with scaffold
     #add  --orm mongoid, or active_record 
