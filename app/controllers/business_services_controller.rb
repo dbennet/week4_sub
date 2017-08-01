@@ -7,17 +7,18 @@ class BusinessServicesController < ApplicationController
 
   def index
     authorize BusinessService
-    pp BusinessService.all
+    #pp BusinessService.all
     #@business_services = BusinessService.all
     @business_services = policy_scope(BusinessService.all)
-    #@business_services = BusinessServicePolicy.merge(@business_services)
+    pp @business_services.map{|r| r.attributes}
+    @business_services = BusinessServicePolicy.merge(@business_services)
   end
 
   def show
     authorize @business_service
     business_services = policy_scope(BusinessService.where(:id=>@business_service.id))
-    #@business_service = BusinessServicePolicy.merge(business_services).first
-    @business_service = business_services.first
+    @business_service = BusinessServicePolicy.merge(business_services).first
+    #@business_service = business_services.first
   end
 
   def create

@@ -16,10 +16,11 @@ class ThingServicesController < ApplicationController
 
   def service_things
     authorize @business_service, :get_things?
-    # @thing_services=@business_service.thing_services.prioritized.with_name
-    @thing_services=@business_service
+    @thing_services=@business_service.thing_services.prioritized.with_name
     pp "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
-    pp @thing_services
+    pp "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+    pp "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+    pp @thing_services.map {|ts| ts.attributes}
     render :index 
   end
 
