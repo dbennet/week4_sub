@@ -11,15 +11,14 @@ class ThingServicesController < ApplicationController
 
   def index
     authorize @thing, :get_services?
-    @thing_services = @thing.thing_services.prioritized.with_caption
+    pp "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+    # @thing_services = @thing.thing_services.prioritized.with_caption
+     @thing_services = BusinessService.where(id: @thing.thing_services.prioritized.with_caption.pluck("business_service_id"))
   end
 
   def service_things
     authorize @business_service, :get_things?
     @thing_services=@business_service.thing_services.prioritized.with_name
-    pp "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
-    pp "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
-    pp "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
     pp @thing_services.map {|ts| ts.attributes}
     render :index 
   end

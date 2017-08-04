@@ -40,6 +40,22 @@
     <span class="invalid">{{$ctrl.item.errors.notes}}</span>
   </div>
 
+
+  <div class="thing-images row col-lg-12">
+    <label class="col-xs-3">Services Available:</label>
+    <ul class="thing-images col-xs-9">
+      <li ng-repeat="ti in $ctrl.services">
+          <span class="id image_id">{{ti.id}}</span>
+          <label class="image-caption"
+                 ng-show="ti.caption">{{ti.caption}}</label>
+          <label class="image-caption"
+                 ng-hide="ti.caption">(no caption {{ti.caption}})</label>
+      </li>
+    </ul>
+  </div>
+
+
+
   <div class="thing-images row col-lg-12">
     <label class="col-xs-3">Related Images:</label>
     <ul class="thing-images col-xs-9">

@@ -20,6 +20,7 @@ Rails.application.routes.draw do
     end
     resources :things, except: [:new, :edit] do
       resources :thing_images, only: [:index, :create, :update, :destroy]
+      resources :thing_services, only: [:index, :create, :update, :destroy]
     end
   end      
 

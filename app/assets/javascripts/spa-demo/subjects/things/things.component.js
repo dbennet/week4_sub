@@ -36,9 +36,10 @@
                                    "$state","$stateParams",
                                    "spa-demo.authz.Authz",
                                    "spa-demo.subjects.Thing",
-                                   "spa-demo.subjects.ThingImage"];
+                                   "spa-demo.subjects.ThingImage",
+                                   "spa-demo.subjects.ThingService"];
   function ThingEditorController($scope, $q, $state, $stateParams, 
-                                 Authz, Thing, ThingImage) {
+                                 Authz, Thing, ThingImage,ThingService) {
     var vm=this;
     vm.create = create;
     vm.clear  = clear;
@@ -71,15 +72,24 @@
       var itemId = thingId ? thingId : vm.item.id;      
       console.log("re/loading thing", itemId);
       vm.images = ThingImage.query({thing_id:itemId});
+      vm.services = ThingService.query({thing_id:itemId});
       vm.item = Thing.get({id:itemId});
       vm.thingsAuthz.newItem(vm.item);
+
       vm.images.$promise.then(
         function(){
           angular.forEach(vm.images, function(ti){
             ti.originalPriority = ti.priority;            
           });                     
         });
-      $q.all([vm.item.$promise,vm.images.$promise]).catch(handleError);
+
+      vm.services.$promise.then(
+        function(){
+          angular.forEach(vm.services, function(ti){
+            ti.originalPriority = ti.priority;            
+          });                     
+        });
+      $q.all([vm.item.$promise,vm.images.$promise,vm.services.$promise]).catch(handleError);
     }
     function haveDirtyLinks() {
       for (var i=0; vm.images && i<vm.images.length; i++) {
