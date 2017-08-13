@@ -124,6 +124,8 @@
       var promises=[];
       if (parentPromise) { promises.push(parentPromise); }
       angular.forEach(vm.selected_linkables, function(linkable){
+        // var resource=BusinessServiceThing.save({business_service_id:vm.item.id}, {thing_id:linkable});
+        //var resource=BusinessServiceThing.save({service_id:vm.item.id}, {thing_id:linkable});
         var resource=BusinessServiceThing.save({business_service_id:vm.item.id}, {thing_id:linkable});
         promises.push(resource.$promise);
       });

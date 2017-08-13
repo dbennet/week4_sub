@@ -34,15 +34,15 @@ class ThingServicesController < ApplicationController
 
   def create
     thing_service = ThingService.new(thing_service_create_params.merge({
-                                  :service_id=>params[:service_id],
+                                  :business_service_id=>params[:business_service_id],
                                   :thing_id=>params[:thing_id],
                                   }))
     thing=Thing.where(id:thing_service.thing_id).first
     if !thing
       full_message_error "cannot find thing[#{params[:thing_id]}]", :bad_request
       skip_authorization
-    elsif !Service.where(id:thing_service.service_id).exists?
-      full_message_error "cannot find service[#{params[:service_id]}]", :bad_request
+    elsif !BusinessService.where(id:thing_service.business_service_id).exists?
+      full_message_error "cannot find service[#{params[:business_service_id]}]", :bad_request
       skip_authorization
     else
       authorize thing, :add_service?
@@ -84,7 +84,7 @@ class ThingServicesController < ApplicationController
     def thing_service_create_params
       params.require(:thing_service).tap {|p|
           #_ids only required in payload when not part of URI
-          p.require(:service_id)    if !params[:service_id]
+          p.require(:service_id)    if !params[:business_service_id]
           p.require(:thing_id)    if !params[:thing_id]
         }.permit(:priority, :service_id, :thing_id)
     end
